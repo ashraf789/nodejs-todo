@@ -1,60 +1,65 @@
 var Todos = require('../models/todoModel');
 var bodyParser = require('body-parser');
 
-module.exports = function(app) {
+module.exports = function (app) {
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true}));
+    app.use(bodyParser.urlencoded({ extended: true }));
 
-    // api
-    app.get('/api/todos/users/:username', function(req, res) {
+    //////// ALL API
 
-        Todos.find({ username: req.params.username}, function(err, todos) {
-            if(err) throw err;
+    // Get all todo list by a user name
+    app.get('/api/todos/users/:username', function (req, res) {
+
+        Todos.find({ username: req.params.username }, function (err, todos) {
+            if (err) throw err;
 
             res.send(todos);
         });
     });
 
-    app.get('/api/todos/:id', function(req, res) {
+    // create a new todo
+    app.post('/api/todos', function (req, res) {
 
-        Todos.findById({ _id: req.params.id }, function(err, todo) {
-            if(err) throw err;
+        var todo = Todos({
+            username: 'ashraf',
+            todo: req.body.todo,
+            isDone: req.body.isDone,
+            hasAttachment: req.body.hasAttachment
+        });
+
+        todo.save(function (err) {
+            if (err) throw err;
+            res.send('Success');
+        });
+    });
+
+    // Get a todo by id
+    app.get('/api/todos/:id', function (req, res) {
+
+        Todos.findById({ _id: req.params.id }, function (err, todo) {
+            if (err) throw err;
             res.send(todo);
         });
     });
 
-    app.post('/api/todos', function(req, res){
+    // update a todo
+    app.put('/api/todos/:id', function (req, res) {
 
-        // update
-        if(req.body.id) {
-            Todos.findByIdAndUpdate(req.body.id, {
-                todo: req.body.todo,
-                isDone: req.body.isDone,
-                hasAttachment: req.body.hasAttachment
-            }, function(err, todo) {
-                if(err) throw err;
-                res.send(todo);
-            });
-
-        }else {
-            var todo = Todos({
-                username: 'ashraf',
-                todo: req.body.todo,
-                isDone: req.body.isDone,
-                hasAttachment: req.body.hasAttachment
-            });
-
-            todo.save(function(err) {
-                if(err) throw err;
-                res.send('Success');
-            });
-        }  
+        Todos.findByIdAndUpdate(req.params.id, {
+            todo: req.body.todo,
+            isDone: req.body.isDone,
+            hasAttachment: req.body.hasAttachment
+        }, function (err, todo) {
+            if (err) throw err;
+            res.send(todo);
+        });
     });
 
-    app.delete('/api/todos/:id', function(req, res) {
+    // delete a todo by id
+    app.delete('/api/todos/:id', function (req, res) {
 
-        Todos.findByIdAndRemove(req.params.id, function(err) {
-            if(err) throw err;
+        Todos.findByIdAndRemove(req.params.id, function (err) {
+            if (err) throw err;
             res.send("Success");
         });
     });

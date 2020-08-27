@@ -9,3 +9,13 @@
 2. Express js 
 3. Ejs
 4. MongoDB
+
+# API 
+__URL = http://localhost:3000;
+
+1. GET All todos for a user by username
+`__URL/api/todos/users/:username` <br>
+Method: GET<br>
+
+2. GET a todo by todo id <br>
+`__URL/api/todos/:id`
