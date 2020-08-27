@@ -7,15 +7,62 @@
 # Technology
 1. Node js 
 2. Express js 
-3. Ejs
-4. MongoDB
+3. MongoDB
 
 # API 
-__URL = http://localhost:3000;
+__Site URL__ = http://localhost:3000;
 
-1. GET All todos for a user by username
-`__URL/api/todos/users/:username` <br>
-Method: GET<br>
+###### Get all todo list by username
+```
+URL: __Site URL__/api/todos/users/{username}
+Request Type: GET
+Example: http://localhost:3000/api/todos/users/{username}
+```
 
-2. GET a todo by todo id <br>
-`__URL/api/todos/:id`
+###### Get a todo by id
+```
+URL: __Site URL__/api/todos/{id}
+Request Type: GET
+```
+
+###### Create a new todo
+
+```
+URL: __Site URL__/api/todos
+Request Type: POST
+Parameter: {
+"username" : "",
+"todo" : "",
+"isDone" : "",
+"hasAttachment" : "",
+}
+```
+
+###### Update a todo
+
+```
+URL: __Site URL__/api/todos/{id}
+Request Type: PUT
+Parameter: {
+"todo" : "",
+"isDone" : "",
+"hasAttachment" : "",
+}
+```
+
+###### Delete a todo by id
+```
+URL: __Site URL__/api/todos/{id}
+Request Type: DELETE
+```
+
+## Installation guidelines
+1. Clone and open the project then install all npm package by <br>
+`npm install`
+
+2. Now go to config/ directory and rename the <b>config.json.example</b> to <b>config.json</b> <br>
+
+3. Update the config.json with your mongo db configuration. <br>
+
+4. Now run project by 
+`node app.js`
