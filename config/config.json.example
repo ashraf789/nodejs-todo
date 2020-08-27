@@ -1,0 +1,6 @@
+{
+    "username"  : "",
+    "password"  : "",
+    "database"  : "",
+    "mongourl"  : "example.jtz84.mongodb.net"
+}
